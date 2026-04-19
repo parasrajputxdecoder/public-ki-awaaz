@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EchoWise — Scheme Finder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-hero { padding: 120px 48px 60px; max-width: 800px; margin: 0 auto; }
+    .back-btn { display:inline-flex; align-items:center; gap:8px; color:var(--text3); font-size:14px; font-family:var(--font-mono); text-decoration:none; margin-bottom:32px; transition:color 0.2s; }
+    .back-btn:hover { color:var(--accent); }
+    .form-card { background:var(--bg2); border:1px solid var(--border); border-radius:20px; padding:40px; max-width:700px; margin:0 auto 40px; }
+    .form-group { margin-bottom:24px; }
+    .form-label { display:block; font-size:14px; font-family:var(--font-mono); color:var(--text2); margin-bottom:10px; letter-spacing:1px; }
+    .form-select, .form-input { width:100%; background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:14px 16px; color:var(--text); font-family:var(--font-body); font-size:15px; outline:none; transition:border-color 0.2s; appearance:none; }
+    .form-select:focus, .form-input:focus { border-color:rgba(245,166,35,0.4); }
+    .find-btn { width:100%; background:var(--accent); color:#000; border:none; border-radius:12px; padding:16px; font-size:16px; font-weight:600; font-family:var(--font-body); cursor:pointer; transition:all 0.2s; margin-top:8px; }
+    .find-btn:hover { transform:translateY(-2px); box-shadow:0 12px 30px rgba(245,166,35,0.3); }
+    .results { max-width:700px; margin:0 auto; display:none; flex-direction:column; gap:16px; }
+    .scheme-card { background:var(--bg2); border:1px solid var(--border); border-radius:16px; padding:28px; transition:all 0.3s; animation:fadeUp 0.4s ease both; }
+    .scheme-card:hover { border-color:rgba(245,166,35,0.3); transform:translateY(-3px); }
+    .scheme-tag { font-size:11px; font-family:var(--font-mono); color:var(--accent); background:rgba(245,166,35,0.1); border:1px solid rgba(245,166,35,0.2); padding:4px 10px; border-radius:100px; display:inline-block; margin-bottom:12px; }
+    .scheme-name { font-size:20px; font-weight:600; margin-bottom:8px; }
+    .scheme-desc { font-size:14px; color:var(--text2); line-height:1.7; margin-bottom:16px; }
+    .scheme-benefit { background:rgba(74,222,128,0.08); border:1px solid rgba(74,222,128,0.15); border-radius:8px; padding:12px 16px; font-size:14px; color:#4ade80; margin-bottom:16px; }
+    .scheme-link { display:inline-flex; align-items:center; gap:6px; color:var(--accent); font-size:14px; text-decoration:none; font-family:var(--font-mono); }
+    .scheme-link:hover { text-decoration:underline; }
+    .loading-schemes { text-align:center; padding:40px; color:var(--text3); display:none; }
+    .spinner { width:32px; height:32px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 16px; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+  </style>
+</head>
+<body>
+<div class="noise"></div>
+<nav>
+  <div class="logo"><span class="logo-icon">◎</span><span class="logo-text">EchoWise</span></div>
+  <div class="nav-tag">Scheme Finder</div>
+</nav>
+
+<div class="page-hero">
+  <a href="index.html" class="back-btn">← Wapas jao</a>
+  <div class="section-label">GOVERNMENT SCHEMES</div>
+  <h2 style="margin-bottom:12px">Apni details daalo,<br>eligible schemes pao.</h2>
+  <p style="color:var(--text2);margin-bottom:40px;font-size:16px">500+ government schemes mein se sirf aapke liye relevant wali — Hindi mein.</p>
+
+  <div class="form-card">
+    <div class="form-group">
+      <label class="form-label">AAP KYA KAAM KARTE HO?</label>
+      <select class="form-select" id="jobType">
+        <option value="">Select karo...</option>
+        <option value="delivery">Delivery Worker (Zomato/Swiggy/Amazon)</option>
+        <option value="auto">Auto / Taxi Driver</option>
+        <option value="construction">Construction / Daily Wage</option>
+        <option value="street">Street Vendor / Hawker</option>
+        <option value="domestic">Domestic Worker</option>
+        <option value="factory">Factory / Mill Worker</option>
+        <option value="farmer">Kisan / Farmer</option>
+        <option value="other">Kuch aur</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">MAHINE KI INCOME (APPROX)</label>
+      <select class="form-select" id="income">
+        <option value="">Select karo...</option>
+        <option value="under5k">₹5,000 se kam</option>
+        <option value="5to10k">₹5,000 – ₹10,000</option>
+        <option value="10to20k">₹10,000 – ₹20,000</option>
+        <option value="above20k">₹20,000 se zyada</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">STATE</label>
+      <select class="form-select" id="state">
+        <option value="">Select karo...</option>
+        <option value="UP">Uttar Pradesh</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Maharashtra">Maharashtra</option>
+        <option value="Bihar">Bihar</option>
+        <option value="Rajasthan">Rajasthan</option>
+        <option value="MP">Madhya Pradesh</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">KYA AAPKE PAAS HAI? (Multiple select kar sakte ho)</label>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:4px">
+        <label style="display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:14px">
+          <input type="checkbox" value="aadhar" style="accent-color:var(--accent)"> Aadhar Card
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:14px">
+          <input type="checkbox" value="eshram" style="accent-color:var(--accent)"> E-Shram Card
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:14px">
+          <input type="checkbox" value="bank" style="accent-color:var(--accent)"> Bank Account
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:14px">
+          <input type="checkbox" value="ration" style="accent-color:var(--accent)"> Ration Card
+        </label>
+      </div>
+    </div>
+    <button class="find-btn" onclick="findSchemes()">🔍 Meri Schemes Dhundo</button>
+  </div>
+
+  <div class="loading-schemes" id="loadingSchemes">
+    <div class="spinner"></div>
+    <p>AI dhundh raha hai aapke liye...</p>
+  </div>
+
+  <div class="results" id="results"></div>
+</div>
+
+<footer style="border-top:1px solid var(--border);padding:32px 48px;text-align:center;color:var(--text3);font-size:14px">
+  <div class="footer-logo">◎ EchoWise</div>
+  <p>Hack on Titans · 2025</p>
+</footer>
+
+<script>
+const SCHEME_SYSTEM = `Tu EchoWise ka Scheme Finder AI hai. User ki details dekh ke relevant government schemes batao.
+
+Response format — STRICT JSON array:
+[
+  {
+    "tag": "Central Scheme",
+    "name": "Scheme ka naam",
+    "desc": "2-3 line description Hindi mein",
+    "benefit": "Exact benefit — amount ya service",
+    "link": "official website URL",
+    "howToApply": "Simple steps Hindi mein"
+  }
+]
+
+5-7 most relevant schemes return karo. Sirf JSON, kuch nahi.`;
+
+async function findSchemes() {
+  const job = document.getElementById('jobType').value;
+  const income = document.getElementById('income').value;
+  const state = document.getElementById('state').value;
+  const docs = [...document.querySelectorAll('input[type=checkbox]:checked')].map(c => c.value);
+
+  if (!job || !income || !state) { alert('Sabhi fields fill karo!'); return; }
+
+  document.getElementById('loadingSchemes').style.display = 'block';
+  document.getElementById('results').style.display = 'none';
+
+  const userMsg = `Meri details: Kaam=${job}, Income=${income}, State=${state}, Documents=${docs.join(', ')}. Mujhe eligible government schemes batao.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: SCHEME_SYSTEM,
+        messages: [{ role: 'user', content: userMsg }]
+      })
+    });
+    const data = await res.json();
+    let text = data.content?.[0]?.text || '[]';
+    text = text.replace(/```json|```/g, '').trim();
+    const schemes = JSON.parse(text);
+    showSchemes(schemes);
+  } catch(e) {
+    showSchemes(getFallbackSchemes(job));
+  }
+}
+
+function showSchemes(schemes) {
+  document.getElementById('loadingSchemes').style.display = 'none';
+  const container = document.getElementById('results');
+  container.style.display = 'flex';
+  container.innerHTML = `<div style="font-family:var(--font-mono);font-size:12px;color:var(--accent);letter-spacing:2px;margin-bottom:8px">${schemes.length} SCHEMES MILI</div>`;
+  schemes.forEach((s, i) => {
+    const card = document.createElement('div');
+    card.className = 'scheme-card';
+    card.style.animationDelay = `${i * 0.08}s`;
+    card.innerHTML = `
+      <div class="scheme-tag">${s.tag}</div>
+      <div class="scheme-name">${s.name}</div>
+      <div class="scheme-desc">${s.desc}</div>
+      <div class="scheme-benefit">✓ ${s.benefit}</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:12px"><strong style="color:var(--text)">Apply karo:</strong> ${s.howToApply}</div>
+      <a href="${s.link}" target="_blank" class="scheme-link">Official site →</a>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function getFallbackSchemes(job) {
+  return [
+    { tag:'Central Scheme', name:'E-Shram Card', desc:'Asangathit kaamgaaron ke liye national database aur social security scheme.', benefit:'₹2 lakh accident insurance bilkul free', link:'https://eshram.gov.in', howToApply:'eshram.gov.in pe jaao ya nearest CSC center pe register karo — free hai' },
+    { tag:'Health Scheme', name:'Ayushman Bharat (PMJAY)', desc:'Garib aur kamzor parivaaron ke liye health insurance scheme.', benefit:'₹5 lakh tak free hospital treatment', link:'https://pmjay.gov.in', howToApply:'pmjay.gov.in pe eligibility check karo, phir nearest empanelled hospital jaao' },
+    { tag:'Loan Scheme', name:'PM SVANidhi', desc:'Street vendors aur small workers ke liye working capital loan.', benefit:'₹10,000 bina guarantee ke loan', link:'https://pmsvanidhi.mohua.gov.in', howToApply:'Nearest bank ya CSC center pe jaao, Aadhar aur photo le jao' },
+    { tag:'Insurance', name:'PMJJBY — Jeevan Jyoti Bima', desc:'Bank account holders ke liye life insurance scheme.', benefit:'₹2 lakh life cover sirf ₹436/year mein', link:'https://jansuraksha.gov.in', howToApply:'Apne bank branch mein jaao aur form bharo' },
+    { tag:'Insurance', name:'PMSBY — Suraksha Bima', desc:'Accident insurance scheme for all bank account holders.', benefit:'₹2 lakh accident cover sirf ₹20/year mein', link:'https://jansuraksha.gov.in', howToApply:'Bank branch ya net banking se enroll karo' },
+  ];
+}
+</script>
+</body>
+</html>

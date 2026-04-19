@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EchoWise — Know Your Rights</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-hero { padding:120px 48px 60px; max-width:1100px; margin:0 auto; }
+    .back-btn { display:inline-flex;align-items:center;gap:8px;color:var(--text3);font-size:14px;font-family:var(--font-mono);text-decoration:none;margin-bottom:32px;transition:color 0.2s; }
+    .back-btn:hover { color:var(--accent); }
+    .categories { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:48px; }
+    .cat-card { background:var(--bg2); border:1px solid var(--border); border-radius:16px; padding:28px; cursor:pointer; transition:all 0.3s; text-align:left; }
+    .cat-card:hover, .cat-card.active { border-color:rgba(245,166,35,0.4); background:rgba(245,166,35,0.06); transform:translateY(-3px); }
+    .cat-icon { font-size:32px; margin-bottom:12px; }
+    .cat-title { font-size:17px; font-weight:600; margin-bottom:6px; }
+    .cat-sub { font-size:13px; color:var(--text3); }
+    .rights-panel { background:var(--bg2); border:1px solid var(--border); border-radius:20px; padding:40px; display:none; animation:fadeUp 0.3s ease both; }
+    .rights-panel.visible { display:block; }
+    .rights-header { display:flex; align-items:center; gap:16px; margin-bottom:32px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .rights-icon-big { font-size:48px; }
+    .right-item { border-left:3px solid rgba(245,166,35,0.4); padding:16px 20px; margin-bottom:16px; border-radius:0 10px 10px 0; background:rgba(255,255,255,0.02); }
+    .right-item h4 { font-size:16px; font-weight:600; margin-bottom:6px; color:var(--accent); }
+    .right-item p { font-size:14px; color:var(--text2); line-height:1.7; }
+    .action-steps { margin-top:32px; }
+    .action-title { font-family:var(--font-mono); font-size:12px; letter-spacing:2px; color:var(--text3); margin-bottom:16px; }
+    .step-item { display:flex; gap:16px; margin-bottom:16px; align-items:flex-start; }
+    .step-num { width:28px; height:28px; background:rgba(245,166,35,0.15); border:1px solid rgba(245,166,35,0.3); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:12px; color:var(--accent); flex-shrink:0; }
+    .step-text { font-size:14px; color:var(--text2); line-height:1.6; padding-top:4px; }
+    .helpline-box { background:rgba(74,222,128,0.06); border:1px solid rgba(74,222,128,0.15); border-radius:12px; padding:20px 24px; margin-top:24px; }
+    .helpline-title { font-size:13px; font-family:var(--font-mono); color:#4ade80; margin-bottom:10px; }
+    .helpline-num { font-size:22px; font-weight:700; color:#4ade80; font-family:var(--font-mono); }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+    @media(max-width:700px) { .categories{grid-template-columns:1fr 1fr} .page-hero{padding:100px 20px 40px} }
+  </style>
+</head>
+<body>
+<div class="noise"></div>
+<nav>
+  <div class="logo"><span class="logo-icon">◎</span><span class="logo-text">EchoWise</span></div>
+  <div class="nav-tag">Know Your Rights</div>
+</nav>
+
+<div class="page-hero">
+  <a href="index.html" class="back-btn">← Wapas jao</a>
+  <div class="section-label">LEGAL RIGHTS</div>
+  <h2 style="margin-bottom:12px">Apna haq jaano।</h2>
+  <p style="color:var(--text2);margin-bottom:40px;font-size:16px">Category chunni — aapke rights Hindi mein samjhenge.</p>
+
+  <div class="categories">
+    <button class="cat-card" onclick="showRights('accident')">
+      <div class="cat-icon">🚗</div>
+      <div class="cat-title">Accident & Injury</div>
+      <div class="cat-sub">Road accident, kaam par chot</div>
+    </button>
+    <button class="cat-card" onclick="showRights('salary')">
+      <div class="cat-icon">💰</div>
+      <div class="cat-title">Salary & Payment</div>
+      <div class="cat-sub">Ruke hue paise, cheating</div>
+    </button>
+    <button class="cat-card" onclick="showRights('harassment')">
+      <div class="cat-icon">🛡️</div>
+      <div class="cat-title">Harassment & Abuse</div>
+      <div class="cat-sub">Workplace mein galat behaviour</div>
+    </button>
+    <button class="cat-card" onclick="showRights('termination')">
+      <div class="cat-icon">📄</div>
+      <div class="cat-title">Job Loss / Termination</div>
+      <div class="cat-sub">Galat tarike se nikaala gaya</div>
+    </button>
+    <button class="cat-card" onclick="showRights('consumer')">
+      <div class="cat-icon">🛒</div>
+      <div class="cat-title">Consumer Rights</div>
+      <div class="cat-sub">Product defect, service cheating</div>
+    </button>
+    <button class="cat-card" onclick="showRights('housing')">
+      <div class="cat-icon">🏠</div>
+      <div class="cat-title">Housing & Rent</div>
+      <div class="cat-sub">Makaan malik ki problems</div>
+    </button>
+  </div>
+
+  <div class="rights-panel" id="rightsPanel"></div>
+</div>
+
+<footer style="border-top:1px solid var(--border);padding:32px 48px;text-align:center;color:var(--text3);font-size:14px;margin-top:40px">
+  <div class="footer-logo">◎ EchoWise</div>
+  <p>Hack on Titans · 2025</p>
+</footer>
+
+<script>
+const RIGHTS_DATA = {
+  accident: {
+    icon: '🚗', title: 'Accident & Injury Rights',
+    rights: [
+      { title: 'Compensation ka haq (Motor Vehicles Act)', text: 'Agar road accident hua hai, chahe aapki galti ho ya na ho — Section 163A ke under no-fault compensation milta hai. Company directly aapko responsible nahi kar sakti bina proper investigation ke.' },
+      { title: 'E-Shram Insurance', text: 'Agar aapke paas E-Shram card hai, toh ₹2 lakh ka accident insurance automatically cover hota hai. Yeh bilkul free hai aur turant claim ho sakta hai.' },
+      { title: 'Kaam par chot — Workmen Compensation Act', text: 'Agar kaam karte waqt chot lagi hai, toh employer ko medical expenses aur compensation dena compulsory hai. Yeh aapka legal right hai, favor nahi.' },
+    ],
+    steps: ['Turant FIR file karo nearest police station mein', 'Medical report aur bills saath rakho — sab evidence hai', 'E-Shram card hai toh eshram.gov.in pe insurance claim karo', 'District Legal Aid Authority se FREE legal help lo'],
+    helpline: '15100', helplineLabel: 'National Legal Aid Helpline'
+  },
+  salary: {
+    icon: '💰', title: 'Salary & Payment Rights',
+    rights: [
+      { title: 'Payment of Wages Act', text: 'Salary time pe milna aapka legal right hai. Delay hone pe employer penalty ke liye liable hai. Monthly workers ke liye 7th, weekly ke liye 7 din mein payment compulsory hai.' },
+      { title: 'Minimum Wages Act', text: 'Har state mein minimum wage fixed hai. Usse kam dena illegal hai. UP mein 2024 mein minimum wage ₹10,000+ hai unskilled workers ke liye.' },
+      { title: 'Gig Worker Rights', text: 'Agar aap Zomato/Swiggy/Amazon pe kaam karte ho, toh company aapko arbitrarily deactivate nahi kar sakti bina reason bataye. Code of Social Security 2020 apply hota hai.' },
+    ],
+    steps: ['Pehle written complaint do employer ko — WhatsApp message bhi valid proof hai', 'Labour Department mein online complaint karo: shramsuvidha.gov.in', 'Magistrate court mein application file karo — court fee nahi lagti', 'Labour Commissioner office mein personally jaao'],
+    helpline: '1800-11-1363', helplineLabel: 'Labour Helpline (Free)'
+  },
+  harassment: {
+    icon: '🛡️', title: 'Harassment & Abuse Rights',
+    rights: [
+      { title: 'POSH Act (Women ke liye)', text: '10+ employees wali har company mein Internal Complaints Committee hona compulsory hai. Sexual harassment ki complaint 3 mahine mein karni hoti hai. Company action lene ke liye bound hai.' },
+      { title: 'Mental & Physical Harassment', text: 'Workplace pe gaali-galoch, धमकी, ya physical abuse karna IPC Section 351 aur 506 ke under criminal offense hai. FIR ho sakti hai.' },
+      { title: 'Retaliation Protection', text: 'Complaint karne ke baad company aapko fire nahi kar sakti ya transfer nahi kar sakti punitive way mein. Yeh illegal retaliation hai.' },
+    ],
+    steps: ['Incident ka date, time, witnesses note karo', 'Internal Complaints Committee (ICC) mein written complaint do', 'ICC na ho toh Local Complaints Committee (district level) mein jao', 'Police complaint ya FIR file karo agar physical abuse hua'],
+    helpline: '181', helplineLabel: 'Women Helpline / Harassment Helpline'
+  },
+  termination: {
+    icon: '📄', title: 'Job Loss & Termination Rights',
+    rights: [
+      { title: 'Industrial Disputes Act', text: '1 saal se zyada kaam karne wale workers ko terminate karne se pehle 1 mahine ka notice ya notice pay dena compulsory hai.' },
+      { title: 'Gratuity Rights', text: '5 saal se zyada kaam karne par gratuity milna chahiye. Formula: Last salary × 15/26 × years of service.' },
+      { title: 'Wrongful Termination', text: 'Bina reason bataye ya caste/religion/gender ke basis pe terminate karna illegal hai. Labour Court mein reinstatement ki demand ho sakti hai.' },
+    ],
+    steps: ['Termination letter maango likhit mein', 'Apna service record, salary slips, appointment letter collect karo', 'Labour Court mein wrongful termination complaint file karo', '45 din ke andar complaint karni hoti hai'],
+    helpline: '1800-11-1363', helplineLabel: 'Labour Helpline (Free)'
+  },
+  consumer: {
+    icon: '🛒', title: 'Consumer Rights',
+    rights: [
+      { title: 'Consumer Protection Act 2019', text: 'Koi bhi defective product ya poor service ke liye complaint kar sakte ho. ₹1 crore tak ke cases district consumer forum mein FREE mein file hote hain.' },
+      { title: 'E-Commerce Rights', text: 'Online shopping mein misleading advertisement, delivery na aana, ya wrong product — sab pe complaint ho sakti hai. Return/refund company ki obligation hai.' },
+      { title: 'Unfair Trade Practices', text: 'MRP se zyada price lena, duplicate product, ya false advertising — yeh sab unfair trade practice hai aur complaint grounds hain.' },
+    ],
+    steps: ['Pehle company ko written complaint do (email ya letter)', 'Consumer Helpline pe call karo: 1800-11-4000', 'edaakhil.nic.in pe online consumer complaint file karo', 'District Consumer Forum mein jaao — fee nahi lagti ₹5 lakh tak'],
+    helpline: '1800-11-4000', helplineLabel: 'National Consumer Helpline (Free)'
+  },
+  housing: {
+    icon: '🏠', title: 'Housing & Rent Rights',
+    rights: [
+      { title: 'Rent Control Act', text: 'Makaan malik rent agreement ke bina aapko nahi nikal sakta. Proper 30 din ka notice dena compulsory hai. UP Rent Control Act aapki protection karta hai.' },
+      { title: 'Security Deposit', text: 'Makaan khaali karne par security deposit 30 din mein wapas milna chahiye. Koi bhi deduction proper reason aur receipt ke saath honi chahiye.' },
+      { title: 'Basic Amenities', text: 'Pani, bijli, aur sanitation provide karna makaan malik ki responsibility hai. Rok nahi sakta forcefully.' },
+    ],
+    steps: ['Makaan malik ko written notice do apni complaint ke baare mein', 'Rent receipts aur agreement ki copies safe rakhna', 'Rent Controller office mein complaint file karo', 'District Court mein eviction stay le sakte ho'],
+    helpline: '14434', helplineLabel: 'PM Helpline'
+  }
+};
+
+function showRights(category) {
+  document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+
+  const data = RIGHTS_DATA[category];
+  const panel = document.getElementById('rightsPanel');
+
+  panel.innerHTML = `
+    <div class="rights-header">
+      <div class="rights-icon-big">${data.icon}</div>
+      <div>
+        <div style="font-family:var(--font-mono);font-size:12px;color:var(--accent);letter-spacing:2px;margin-bottom:6px">YOUR RIGHTS</div>
+        <h3 style="font-size:24px;font-weight:600">${data.title}</h3>
+      </div>
+    </div>
+    ${data.rights.map(r => `
+      <div class="right-item">
+        <h4>${r.title}</h4>
+        <p>${r.text}</p>
+      </div>
+    `).join('')}
+    <div class="action-steps">
+      <div class="action-title">TURANT KYA KARO</div>
+      ${data.steps.map((s, i) => `
+        <div class="step-item">
+          <div class="step-num">${String(i+1).padStart(2,'0')}</div>
+          <div class="step-text">${s}</div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="helpline-box">
+      <div class="helpline-title">📞 HELPLINE — FREE CALL</div>
+      <div class="helpline-num">${data.helpline}</div>
+      <div style="font-size:13px;color:rgba(74,222,128,0.7);margin-top:4px">${data.helplineLabel}</div>
+    </div>
+  `;
+
+  panel.classList.add('visible');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>

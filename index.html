@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EchoWise — आपकी आवाज़, आपका हक़</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- NOISE OVERLAY -->
+  <div class="noise"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">
+      <span class="logo-icon">◎</span>
+      <span class="logo-text">EchoWise</span>
+    </div>
+    <div class="nav-links">
+      <a href="rights.html" class="nav-link">Rights</a>
+      <a href="schemes.html" class="nav-link">Schemes</a>
+      <a href="complaint.html" class="nav-link">Complaint</a>
+      <button class="lang-toggle" id="themeBtn" onclick="toggleTheme()" style="margin-right:4px">☀️</button>
+      <button class="lang-toggle" onclick="toggleLang()" id="langBtn">EN</button>
+      <div class="nav-tag">AI for Bharat 🇮🇳</div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-text">ECHO</div>
+    <div class="hero-content">
+      <div class="hero-badge">⚡ Voice-First · Hindi · Free Forever</div>
+      <h1 class="hero-title">
+        <span class="line1">आपकी आवाज़ में,</span>
+        <span class="line2">आपका हक़ दिलाएं।</span>
+      </h1>
+      <p class="hero-sub">Delivery workers, auto drivers, daily wage earners — inke paas legal rights aur government schemes ki jankari nahi hoti. EchoWise unhe Hindi mein, voice se, <strong>bilkul free</strong> mein jawab deta hai.</p>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="showDemo()">▶ Live Demo देखें</button>
+        <a href="https://github.com" class="btn-ghost">GitHub →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">10Cr+</span><span class="stat-label">Gig Workers</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">500+</span><span class="stat-label">Govt Schemes</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label">Bharat Languages</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div class="chat-header">
+            <span class="pulse-dot"></span>
+            EchoWise सुन रहा है...
+          </div>
+          <div class="chat-bubble user">🎙️ "Accident hua, company bol rahi hai meri galti hai, kya karun?"</div>
+          <div class="chat-bubble ai">
+            <div class="ai-icon">◎</div>
+            <div class="ai-text">
+              <strong>आपके अधिकार:</strong><br>
+              ✓ Motor Vehicle Act Section 163A के तहत compensation मिलना चाहिए<br>
+              ✓ Company आपको directly responsible नहीं कर सकती<br>
+              ✓ नज़दीकी Legal Aid Center: <span class="link-mock">District Court, Agra →</span>
+            </div>
+          </div>
+          <div class="chat-bubble user">📄 "Yeh insurance form samajh nahi aa raha"</div>
+          <div class="chat-bubble ai typing">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM SECTION -->
+  <section class="problem">
+    <div class="section-label">THE PROBLEM</div>
+    <h2>जो दिखता नहीं,<br>वो दर्द होता है।</h2>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-icon">📋</div>
+        <h3>Documents समझ नहीं आते</h3>
+        <p>Insurance forms, labour contracts, govt applications — सब English में। जानकारी के बिना रोज़ नुकसान।</p>
+      </div>
+      <div class="problem-card highlight">
+        <div class="problem-icon">⚖️</div>
+        <h3>Rights का पता नहीं</h3>
+        <p>Company कुछ भी कह दे — delivery boy को नहीं पता उसके पास कानूनी हक़ है। Lawyers महंगे हैं।</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🏛️</div>
+        <h3>Schemes miss हो जाती हैं</h3>
+        <p>PM SVANidhi, E-Shram, PMJAY — 500+ schemes हैं पर कोई बताने वाला नहीं कि कौन सी मिलेगी।</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features-section">
+    <div class="section-label">FEATURES</div>
+    <h2>Sab kuch ek jagah.</h2>
+    <div class="features-grid">
+      <a href="rights.html" class="feature-card">
+        <div class="feature-icon">⚖️</div>
+        <h3>Know Your Rights</h3>
+        <p>Accident, salary, harassment — category chunno aur apne legal rights Hindi mein samjho।</p>
+        <div class="feature-arrow">Explore →</div>
+      </a>
+      <a href="schemes.html" class="feature-card">
+        <div class="feature-icon">🏛️</div>
+        <h3>Scheme Finder</h3>
+        <p>Apni details daalo — AI 500+ schemes mein se sirf aapke liye eligible wali dhundh deta hai।</p>
+        <div class="feature-arrow">Find Schemes →</div>
+      </a>
+      <a href="complaint.html" class="feature-card">
+        <div class="feature-icon">✍️</div>
+        <h3>Complaint Draft</h3>
+        <p>Situation batao — ready-made formal complaint letter milega, seedha copy ya WhatsApp pe bhejo।</p>
+        <div class="feature-arrow">Draft Now →</div>
+      </a>
+      <div class="feature-card" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})" style="cursor:pointer">
+        <div class="feature-icon">🎙️</div>
+        <h3>Hindi AI Chat</h3>
+        <p>Kuch bhi pucho Hindi ya Hinglish mein — voice se ya type karke। Instant jawab milega।</p>
+        <div class="feature-arrow">Try Demo →</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMO SECTION -->
+  <section class="demo-section" id="demo">
+    <div class="section-label">LIVE DEMO</div>
+    <h2>खुद आज़माओ</h2>
+    <p class="section-sub">Hindi में टाइप करो या बोलो — EchoWise जवाब देगा</p>
+
+    <div class="demo-container">
+      <div class="demo-left">
+        <div class="scenario-title">एक scenario चुनो:</div>
+        <div class="scenarios">
+          <button class="scenario-btn active" onclick="setScenario(0)">🚗 Accident हुआ, rights?</button>
+          <button class="scenario-btn" onclick="setScenario(1)">💰 Salary नहीं मिली</button>
+          <button class="scenario-btn" onclick="setScenario(2)">🏛️ कौन सी scheme मिलेगी?</button>
+          <button class="scenario-btn" onclick="setScenario(3)">📋 Form explain करो</button>
+        </div>
+        <div class="input-area">
+          <textarea id="userInput" placeholder="यहाँ हिंदी में लिखो... जैसे: 'मुझे accident हुआ, company bol rahi hai meri galti hai'"
+          ></textarea>
+          <div class="input-actions">
+            <button class="mic-btn" onclick="toggleMic()" id="micBtn">🎙️</button>
+            <button class="send-btn" onclick="sendMessage()">भेजो →</button>
+          </div>
+        </div>
+        <div id="micStatus" class="mic-status" style="display:none">🔴 सुन रहा हूँ... बोलिए</div>
+      </div>
+
+      <div class="demo-right">
+        <div class="chat-window" id="chatWindow">
+          <div class="chat-welcome">
+            <div class="welcome-icon">◎</div>
+            <p>नमस्ते! मैं EchoWise हूँ।<br>आपकी कोई भी समस्या बताइए — मैं Hindi में मदद करूँगा।</p>
+          </div>
+        </div>
+        <div class="loading-bar" id="loadingBar" style="display:none">
+          <div class="loading-fill"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how">
+    <div class="section-label">HOW IT WORKS</div>
+    <h2>3 Steps, बस।</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>बोलो या लिखो</h3>
+          <p>Hindi, Hinglish — जो comfortable हो। कोई form fill करने की ज़रूरत नहीं।</p>
+        </div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>AI समझता है</h3>
+          <p>Gemini AI आपकी problem analyze करता है — legal, financial, ya government scheme कौन सी relevant है।</p>
+        </div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>Action लो</h3>
+          <p>Simple steps, relevant offices के links, complaint draft — सब Hindi में ready।</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT -->
+  <section class="impact">
+    <div class="impact-inner">
+      <div class="section-label light">IMPACT VISION</div>
+      <h2>Sirf ek app nahi —<br>information sabke liye.</h2>
+      <div class="impact-grid">
+        <div class="impact-item">
+          <span class="impact-big">10Cr+</span>
+          <span>Gig workers who need this</span>
+        </div>
+        <div class="impact-item">
+          <span class="impact-big">₹0</span>
+          <span>Cost to the user. Always.</span>
+        </div>
+        <div class="impact-item">
+          <span class="impact-big">3+</span>
+          <span>Languages planned (Hindi, Bhojpuri, Marathi)</span>
+        </div>
+        <div class="impact-item">
+          <span class="impact-big">NEP</span>
+          <span>Aligned with Digital India & NEP 2020</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH STACK -->
+  <section class="tech">
+    <div class="section-label">TECH STACK</div>
+    <h2>Tech stack.</h2>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="tech-icon">⚛️</div>
+        <div class="tech-name">React.js</div>
+        <div class="tech-desc">Frontend UI</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">🐍</div>
+        <div class="tech-name">Python + FastAPI</div>
+        <div class="tech-desc">Backend & AI logic</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">✨</div>
+        <div class="tech-name">Gemini API</div>
+        <div class="tech-desc">Multilingual AI core</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">🎙️</div>
+        <div class="tech-name">Web Speech API</div>
+        <div class="tech-desc">Voice input/output</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">👁️</div>
+        <div class="tech-name">Tesseract OCR</div>
+        <div class="tech-desc">Document scanning</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">🔥</div>
+        <div class="tech-name">Firebase</div>
+        <div class="tech-desc">Realtime database</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">◎ EchoWise</div>
+    <p>Hack on Titans · 2025</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>
+  // Dark/Light mode
+  let isDark = true;
+  function toggleTheme() {
+    isDark = !isDark;
+    document.body.style.setProperty('--bg', isDark ? '#0a0a0a' : '#f5f5f0');
+    document.body.style.setProperty('--bg2', isDark ? '#111111' : '#ffffff');
+    document.body.style.setProperty('--bg3', isDark ? '#1a1a1a' : '#f0ede8');
+    document.body.style.setProperty('--text', isDark ? '#f0ede8' : '#0a0a0a');
+    document.body.style.setProperty('--text2', isDark ? '#999' : '#555');
+    document.body.style.setProperty('--text3', isDark ? '#555' : '#999');
+    document.body.style.setProperty('--border', isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)');
+    document.getElementById('themeBtn').textContent = isDark ? '☀️' : '🌙';
+  }
+
+  // Language toggle
+  let isHindi = false;
+  const translations = {
+    heroTitle1: { en: 'आपकी आवाज़ में,', hi: 'Apni awaaz mein,' },
+    heroTitle2: { en: 'आपका हक़ दिलाएं।', hi: 'Apna haq dilayein.' },
+  };
+  function toggleLang() {
+    isHindi = !isHindi;
+    document.getElementById('langBtn').textContent = isHindi ? 'हि' : 'EN';
+  }
+  </script>
+</html>

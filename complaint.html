@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EchoWise — Complaint Draft</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-hero { padding:120px 48px 80px; max-width:1000px; margin:0 auto; }
+    .back-btn { display:inline-flex;align-items:center;gap:8px;color:var(--text3);font-size:14px;font-family:var(--font-mono);text-decoration:none;margin-bottom:32px;transition:color 0.2s; }
+    .back-btn:hover { color:var(--accent); }
+    .draft-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+    .input-section { background:var(--bg2); border:1px solid var(--border); border-radius:20px; padding:36px; }
+    .output-section { background:var(--bg2); border:1px solid var(--border); border-radius:20px; padding:36px; position:sticky; top:100px; }
+    .form-label { display:block; font-size:12px; font-family:var(--font-mono); color:var(--text3); letter-spacing:2px; margin-bottom:10px; }
+    .form-input, .form-select, .form-textarea { width:100%; background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:14px 16px; color:var(--text); font-family:var(--font-body); font-size:15px; outline:none; transition:border-color 0.2s; margin-bottom:20px; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color:rgba(245,166,35,0.4); }
+    .form-textarea { resize:none; height:100px; }
+    .form-select { appearance:none; }
+    .gen-btn { width:100%; background:var(--accent); color:#000; border:none; border-radius:12px; padding:16px; font-size:15px; font-weight:600; font-family:var(--font-body); cursor:pointer; transition:all 0.2s; }
+    .gen-btn:hover { transform:translateY(-2px); box-shadow:0 12px 30px rgba(245,166,35,0.3); }
+    .output-placeholder { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:300px; color:var(--text3); text-align:center; gap:12px; }
+    .output-placeholder span { font-size:40px; }
+    .complaint-output { display:none; }
+    .complaint-text { background:var(--bg3); border:1px solid var(--border); border-radius:12px; padding:24px; font-size:14px; line-height:1.9; color:var(--text); white-space:pre-wrap; font-family:var(--font-body); min-height:300px; margin-bottom:16px; }
+    .output-actions { display:flex; gap:12px; }
+    .copy-btn, .share-btn { flex:1; padding:12px; border-radius:10px; font-size:14px; font-weight:600; font-family:var(--font-body); cursor:pointer; transition:all 0.2s; border:none; }
+    .copy-btn { background:var(--bg3); color:var(--text); border:1px solid var(--border); }
+    .copy-btn:hover { border-color:rgba(255,255,255,0.3); }
+    .share-btn { background:#25D366; color:#fff; }
+    .share-btn:hover { opacity:0.9; }
+    .spinner { width:28px; height:28px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto; }
+    @keyframes spin { to{transform:rotate(360deg)} }
+    @media(max-width:800px) { .draft-grid{grid-template-columns:1fr} .output-section{position:static} .page-hero{padding:100px 20px 60px} }
+  </style>
+</head>
+<body>
+<div class="noise"></div>
+<nav>
+  <div class="logo"><span class="logo-icon">◎</span><span class="logo-text">EchoWise</span></div>
+  <div class="nav-tag">Complaint Draft</div>
+</nav>
+
+<div class="page-hero">
+  <a href="index.html" class="back-btn">← Wapas jao</a>
+  <div class="section-label">AI COMPLAINT WRITER</div>
+  <h2 style="margin-bottom:12px">Apni complaint<br>AI se likhwao।</h2>
+  <p style="color:var(--text2);margin-bottom:40px;font-size:16px">Situation batao — ready-made formal complaint letter milega jo copy karke bhej sako।</p>
+
+  <div class="draft-grid">
+    <div class="input-section">
+      <label class="form-label">COMPLAINT KAHAN BHEJNI HAI?</label>
+      <select class="form-select" id="complaintTo">
+        <option value="">Select karo...</option>
+        <option value="employer">Employer / Company</option>
+        <option value="labour">Labour Department / Commissioner</option>
+        <option value="police">Police Station</option>
+        <option value="consumer">Consumer Forum</option>
+        <option value="platform">Gig Platform (Zomato/Swiggy etc.)</option>
+        <option value="court">District Court / Magistrate</option>
+      </select>
+
+      <label class="form-label">AAPKA NAAM</label>
+      <input class="form-input" id="yourName" placeholder="Aapka poora naam..." type="text">
+
+      <label class="form-label">KISKE KHILAF COMPLAINT HAI?</label>
+      <input class="form-input" id="againstName" placeholder="Company / vyakti ka naam..." type="text">
+
+      <label class="form-label">SAMASYAA KYA HAI? (Hindi mein batao)</label>
+      <textarea class="form-textarea" id="problem" placeholder="Jaise: Pichhle 3 mahine se salary nahi mili. Manager bol raha hai baad mein denge. HR baat nahi karta..."></textarea>
+
+      <label class="form-label">KAB SE HO RAHA HAI?</label>
+      <input class="form-input" id="since" placeholder="Jaise: January 2025 se..." type="text">
+
+      <label class="form-label">KUCH AUR IMPORTANT DETAILS?</label>
+      <textarea class="form-textarea" id="extra" placeholder="Koi witnesses, previous complaints, documents wagera..." style="height:80px"></textarea>
+
+      <button class="gen-btn" onclick="generateComplaint()">✍️ Complaint Draft Karo</button>
+    </div>
+
+    <div class="output-section">
+      <div style="font-family:var(--font-mono);font-size:12px;color:var(--accent);letter-spacing:2px;margin-bottom:20px">DRAFT OUTPUT</div>
+
+      <div class="output-placeholder" id="placeholder">
+        <span>📄</span>
+        <p style="font-size:15px">Details bharo aur<br>"Complaint Draft Karo" dabao</p>
+      </div>
+
+      <div class="complaint-output" id="complaintOutput">
+        <div class="complaint-text" id="complaintText"></div>
+        <div class="output-actions">
+          <button class="copy-btn" onclick="copyComplaint()">📋 Copy karo</button>
+          <button class="share-btn" onclick="shareWhatsApp()">WhatsApp pe bhejo</button>
+        </div>
+      </div>
+
+      <div style="display:none;text-align:center;padding:40px" id="loadingDraft">
+        <div class="spinner" style="margin-bottom:16px"></div>
+        <p style="color:var(--text3);font-size:14px">Draft ban raha hai...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer style="border-top:1px solid var(--border);padding:32px 48px;text-align:center;color:var(--text3);font-size:14px;margin-top:0">
+  <div class="footer-logo">◎ EchoWise</div>
+  <p>Hack on Titans · 2025</p>
+</footer>
+
+<script>
+async function generateComplaint() {
+  const to = document.getElementById('complaintTo').value;
+  const name = document.getElementById('yourName').value;
+  const against = document.getElementById('againstName').value;
+  const problem = document.getElementById('problem').value;
+  const since = document.getElementById('since').value;
+  const extra = document.getElementById('extra').value;
+
+  if (!to || !name || !problem) { alert('Naam, complaint kahan bhejni hai, aur samasya zaroor likho!'); return; }
+
+  document.getElementById('placeholder').style.display = 'none';
+  document.getElementById('complaintOutput').style.display = 'none';
+  document.getElementById('loadingDraft').style.display = 'block';
+
+  const prompt = `Ek formal complaint letter draft karo Hindi mein.
+Bhejne wala: ${name}
+Kahan bhejni: ${to}
+Kiske khilaf: ${against}
+Samasya: ${problem}
+Kab se: ${since}
+Extra details: ${extra}
+
+Format: Proper formal letter with Date, To, Subject, Body, Signature. Simple Hindi mein likho jo padha-likha aur anpadh dono samjhe.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: 'Tu ek legal complaint letter writer hai. Formal aur effective Hindi letters likhta hai jo court aur government offices mein kaam aaye. Letter clear, factual aur legally sound hona chahiye.',
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    const text = data.content?.[0]?.text || getFallbackDraft(name, against, problem, to);
+    showDraft(text);
+  } catch(e) {
+    showDraft(getFallbackDraft(name, against, problem, to));
+  }
+}
+
+function showDraft(text) {
+  document.getElementById('loadingDraft').style.display = 'none';
+  document.getElementById('complaintOutput').style.display = 'block';
+  document.getElementById('complaintText').textContent = text;
+}
+
+function copyComplaint() {
+  const text = document.getElementById('complaintText').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = '✅ Copy ho gaya!';
+    setTimeout(() => btn.textContent = '📋 Copy karo', 2000);
+  });
+}
+
+function shareWhatsApp() {
+  const text = document.getElementById('complaintText').textContent;
+  window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+function getFallbackDraft(name, against, problem, to) {
+  const date = new Date().toLocaleDateString('hi-IN');
+  return `दिनांक: ${date}
+
+सेवा में,
+${to === 'labour' ? 'श्रम आयुक्त महोदय' : to === 'police' ? 'थाना प्रभारी महोदय' : 'संबंधित अधिकारी महोदय'}
+
+विषय: ${against} के विरुद्ध शिकायत।
+
+महोदय,
+
+मैं ${name}, आपको सविनय निवेदन करना चाहता/चाहती हूँ कि ${against} द्वारा मेरे साथ अन्याय किया जा रहा है।
+
+समस्या का विवरण:
+${problem}
+
+उपर्युक्त समस्या के कारण मुझे अत्यंत कठिनाई हो रही है। अतः आपसे विनम्र निवेदन है कि इस मामले में उचित कार्रवाई की जाए।
+
+मैं आशा करता/करती हूँ कि आप इस शिकायत पर शीघ्र ध्यान देंगे।
+
+आपका/आपकी,
+${name}
+दिनांक: ${date}`;
+}
+</script>
+</body>
+</html>
